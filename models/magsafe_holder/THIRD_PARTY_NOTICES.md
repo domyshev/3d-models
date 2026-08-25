@@ -9,9 +9,8 @@
 - SHA-256: `e6e97bac49814bec33ecdbe8641664497b6989455d84bdba0282e5f6562fb600`
 - Local modifications: none
 
-The original download URL was not recorded when this file was added to the
-private development repository. A matching public copy of version 2.7 is
-available at:
+The original download URL is not embedded in the vendored file. A matching
+public copy of version 2.7 is available at:
 
 <https://github.com/verhas/OpenScad/blob/main/threads.scad>
 

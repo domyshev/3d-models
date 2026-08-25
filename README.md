@@ -16,5 +16,5 @@ notices.
 - Model-specific documentation and licensing are stored with each model.
 - Vendored dependencies are pinned to explicit versions for reproducible
   rendering.
-- Generated print files and release artifacts will be published alongside the
-  corresponding model version when available.
+- Generated print files and release artifacts are published alongside each
+  corresponding model version.

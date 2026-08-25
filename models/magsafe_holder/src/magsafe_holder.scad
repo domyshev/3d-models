@@ -7,8 +7,12 @@ use <vendor/dan-kirshner-threads/2.7/threads.scad>
 // Display/export selector: "all", "assembly", "holder", "stand_bolt", "nut",
 // "stand", "stand_flat", "stand_long_side", "platform",
 // "base_socket_x", "base_socket_y", "base_end_block",
-// "base_connector", or "platform_preview".
+// "compact_end_block", "base_connector", "compact_stud",
+// or "platform_preview".
 part = "assembly";
+// Product configuration: the physically tested tall base or the simplified
+// v0.2 base. Both variants share the clamp, stand, fasteners, and sleeves.
+configuration = "compact"; // "full_height" or "compact".
 show_magsafe_reference = false;
 show_labels = true;
 
@@ -122,9 +126,15 @@ stand_index_station_count = 2 * stand_index_tooth_count;
 stand_index_step_angle = 360 / stand_index_station_count;
 stand_upper_inner_face_mid_y = stand_upper_gap / 2; // 9 mm.
 stand_upper_inner_face_angle = 0;
+assembly_holder_tilt = 90 + 6 * stand_index_step_angle; // 112.5 degrees.
 
-// Compact modular base. Four end blocks and socket bodies form an exact
-// 110 x 78 mm footprint around the central indexed ear.
+// The clamp arms keep their tested 6 mm thickness. Complementary indexing is
+// recessed into their outer faces, so the existing 0.3 mm fork clearance is
+// preserved while the stand's positive teeth can engage the clamp.
+clamp_index_groove_extra_depth = 0.15;
+
+// Shared modular-base parts. In full-height mode, four end blocks and socket
+// bodies form an exact 110 x 78 mm footprint around the central indexed ear.
 base_target_length_x = 110;
 base_target_width_y = 78;
 base_stud_axis_height = 10;
@@ -165,6 +175,30 @@ platform_lug_bottom_z = base_stud_axis_height
 platform_lug_axis_height = platform_lug_bottom_z
     + platform_lug_height / 2; // 31.5 mm.
 platform_lug_top_z = platform_lug_bottom_z + platform_lug_height; // 43 mm.
+compact_base_floor_thickness = 1;
+compact_lug_bottom_z = compact_base_floor_thickness;
+compact_lug_axis_height = compact_lug_bottom_z
+    + platform_lug_height / 2; // 12.5 mm.
+compact_lug_top_z = compact_lug_bottom_z + platform_lug_height; // 24 mm.
+compact_end_block_cross_section = 28;
+compact_end_block_axis_length = 12;
+compact_end_block_chamfer = base_end_block_chamfer;
+compact_end_block_vertical_offset = compact_end_block_cross_section / 2
+    - compact_lug_axis_height; // 1.5 mm keeps the assembled block on Z=0.
+compact_integrated_stud_embed_margin = 0.3;
+compact_integrated_stud_inward_extension = platform_lug_radius
+    - sqrt(
+        platform_lug_radius * platform_lug_radius
+            - bolt_diameter * bolt_diameter / 4
+    )
+    + compact_integrated_stud_embed_margin; // 1.99 mm into the rounded lug.
+compact_shared_stud_length = 44;
+compact_shared_stud_thread_length = 8;
+compact_shared_stud_smooth_length = compact_shared_stud_length
+    - 2 * compact_shared_stud_thread_length; // 28 mm.
+compact_shared_stud_extension = (
+    compact_shared_stud_length - stand_outer_thickness
+) / 2; // 7 mm beyond each 30 mm fork face.
 base_socket_x_length = (
     base_target_length_x
         - platform_lug_depth
@@ -267,6 +301,32 @@ assert(
 assert(
     base_connector_solid_core == 8,
     "Opposing 4 mm hex sockets must leave an 8 mm solid core"
+);
+assert(
+    configuration == "full_height" || configuration == "compact",
+    str("Unknown configuration: ", configuration)
+);
+assert(
+    compact_lug_top_z == 24
+        && compact_lug_axis_height == 12.5,
+    "Compact base must be 24 mm tall with its joint axis at 12.5 mm"
+);
+assert(
+    compact_end_block_cross_section == 28
+        && compact_end_block_axis_length == 12
+        && compact_end_block_vertical_offset == 1.5,
+    "Compact end blocks must be 28 x 28 x 12 mm and sit on the table"
+);
+assert(
+    compact_integrated_stud_inward_extension > 1.9
+        && compact_integrated_stud_inward_extension < 2.1,
+    "Compact side studs need about 2 mm of overlap into the rounded lug"
+);
+assert(
+    compact_shared_stud_length == 44
+        && compact_shared_stud_thread_length == 8
+        && compact_shared_stud_smooth_length == 28,
+    "Compact shared stud must be 44 mm with two 8 mm threaded ends"
 );
 
 function hex_vertex_diameter(across_flats) = across_flats / cos(30);
@@ -563,6 +623,39 @@ module clamp_alignment_collar() {
             );
 }
 
+module clamp_outer_index_groove_ring() {
+    // Cut a slightly deeper copy of the stand tooth profile. The shared
+    // angular phase lets each positive stand tooth seat in its matching
+    // recess without adding material to the already fitted clamp width.
+    scale([
+        1,
+        1,
+        (stand_index_tooth_height + clamp_index_groove_extra_depth)
+            / stand_index_tooth_height
+    ])
+        stand_index_serration_ring();
+}
+
+module clamp_positive_y_index_grooves() {
+    clamp_outer_face_y = block_gap / 2
+        + block_thickness
+        + block_join_overlap;
+
+    translate([
+        block_hole_center_x,
+        clamp_outer_face_y,
+        block_hole_center_z
+    ])
+        rotate([90, 0, 0])
+            clamp_outer_index_groove_ring();
+}
+
+module clamp_outer_index_grooves() {
+    clamp_positive_y_index_grooves();
+    mirror([0, 1, 0])
+        clamp_positive_y_index_grooves();
+}
+
 module circle_holder() {
     color(holder_color)
         difference() {
@@ -574,6 +667,7 @@ module circle_holder() {
 
             clamp_bolt_hole();
             holder_inner_envelope_cuts();
+            clamp_outer_index_grooves();
         }
 }
 
@@ -778,41 +872,43 @@ module platform_lug_profile_2d() {
     }
 }
 
-module platform_lug_core() {
+module platform_lug_core(bottom_z = platform_lug_bottom_z) {
     translate([
         -platform_lug_depth / 2,
         platform_lug_thickness / 2,
-        platform_lug_bottom_z
+        bottom_z
     ])
         rotate([90, 0, 0])
             linear_extrude(height = platform_lug_thickness)
                 platform_lug_profile_2d();
 }
 
-module platform_lug_positive_index_ring() {
+module platform_lug_positive_index_ring(
+    axis_height = platform_lug_axis_height
+) {
     translate([
         0,
         platform_lug_thickness / 2,
-        platform_lug_axis_height
+        axis_height
     ])
         rotate([-90, 0, 0])
             rotate([0, 0, stand_index_step_angle])
                 stand_index_serration_ring();
 }
 
-module platform_lug_index_rings() {
-    platform_lug_positive_index_ring();
+module platform_lug_index_rings(axis_height = platform_lug_axis_height) {
+    platform_lug_positive_index_ring(axis_height);
     mirror([0, 1, 0])
-        platform_lug_positive_index_ring();
+        platform_lug_positive_index_ring(axis_height);
 }
 
-module platform_lug_hole() {
+module platform_lug_hole(axis_height = platform_lug_axis_height) {
     translate([
         0,
         -platform_lug_thickness / 2
             - stand_index_tooth_height
             - epsilon,
-        platform_lug_axis_height
+        axis_height
     ])
         rotate([-90, 0, 0])
             cylinder(
@@ -848,29 +944,57 @@ module base_internal_thread_cutter(length) {
     }
 }
 
-module compact_base_stud(direction) {
+module integrated_base_stud(
+    direction,
+    axis_height = base_stud_axis_height,
+    inward_extension = 0
+) {
     half_x = platform_lug_depth / 2;
     half_y = platform_lug_thickness / 2;
 
     if (direction == "+x")
-        translate([half_x - epsilon, 0, base_stud_axis_height])
+        translate([
+            half_x - epsilon - inward_extension,
+            0,
+            axis_height
+        ])
             rotate([0, 90, 0])
-                base_external_thread(base_stud_length + epsilon);
+                base_external_thread(
+                    base_stud_length + epsilon + inward_extension
+                );
     else if (direction == "-x")
-        translate([-half_x + epsilon, 0, base_stud_axis_height])
+        translate([
+            -half_x + epsilon + inward_extension,
+            0,
+            axis_height
+        ])
             rotate([0, -90, 0])
-                base_external_thread(base_stud_length + epsilon);
+                base_external_thread(
+                    base_stud_length + epsilon + inward_extension
+                );
     else if (direction == "+y")
-        translate([0, half_y - epsilon, base_stud_axis_height])
+        translate([
+            0,
+            half_y - epsilon - inward_extension,
+            axis_height
+        ])
             rotate([-90, 0, 0])
-                base_external_thread(base_stud_length + epsilon);
+                base_external_thread(
+                    base_stud_length + epsilon + inward_extension
+                );
     else
-        translate([0, -half_y + epsilon, base_stud_axis_height])
+        translate([
+            0,
+            -half_y + epsilon + inward_extension,
+            axis_height
+        ])
             rotate([90, 0, 0])
-                base_external_thread(base_stud_length + epsilon);
+                base_external_thread(
+                    base_stud_length + epsilon + inward_extension
+                );
 }
 
-module compact_threaded_base() {
+module full_height_threaded_base() {
     color(platform_color)
         difference() {
             union() {
@@ -887,10 +1011,72 @@ module compact_threaded_base() {
                 platform_lug_core();
                 platform_lug_index_rings();
                 for (direction = ["+x", "-x", "+y", "-y"])
-                    compact_base_stud(direction);
+                    integrated_base_stud(direction);
             }
 
             platform_lug_hole();
+        }
+}
+
+module compact_threaded_base() {
+    color(platform_color)
+        difference() {
+            union() {
+                // Only the 1 mm floor and the 23 mm indexed lug remain.
+                translate([
+                    -platform_lug_depth / 2,
+                    -platform_lug_thickness / 2,
+                    0
+                ])
+                    cube([
+                        platform_lug_depth,
+                        platform_lug_thickness,
+                        compact_base_floor_thickness + epsilon
+                    ]);
+                platform_lug_core(compact_lug_bottom_z);
+                platform_lug_index_rings(compact_lug_axis_height);
+
+                // Only the pair perpendicular to the lug-hole axis remains.
+                for (direction = ["+x", "-x"])
+                    integrated_base_stud(
+                        direction,
+                        compact_lug_axis_height,
+                        compact_integrated_stud_inward_extension
+                    );
+            }
+
+            platform_lug_hole(compact_lug_axis_height);
+        }
+}
+
+module compact_shared_stud() {
+    color(base_connector_color)
+        union() {
+            base_external_thread(
+                compact_shared_stud_thread_length + epsilon
+            );
+
+            translate([
+                0,
+                0,
+                compact_shared_stud_thread_length - epsilon
+            ])
+                cylinder(
+                    d = bolt_diameter,
+                    h = compact_shared_stud_smooth_length
+                        + 2 * epsilon
+                );
+
+            translate([
+                0,
+                0,
+                compact_shared_stud_length
+                    - compact_shared_stud_thread_length
+                    - epsilon
+            ])
+                base_external_thread(
+                    compact_shared_stud_thread_length + epsilon
+                );
         }
 }
 
@@ -954,6 +1140,39 @@ module base_end_block() {
                 0,
                 base_end_block_axis_length + epsilon
             ])
+                rotate([180, 0, 0])
+                    base_internal_thread_cutter(
+                        base_socket_depth + epsilon
+                    );
+        }
+}
+
+module compact_chamfered_end_block_body(cross_offset = [0, 0]) {
+    chamfer = compact_end_block_chamfer;
+
+    translate([
+        cross_offset[0],
+        cross_offset[1],
+        compact_end_block_axis_length / 2
+    ])
+        minkowski() {
+            cube([
+                compact_end_block_cross_section - 2 * chamfer,
+                compact_end_block_cross_section - 2 * chamfer,
+                compact_end_block_axis_length - 2 * chamfer
+            ], center = true);
+            base_chamfer_octahedron(chamfer);
+        }
+}
+
+module compact_end_block(cross_offset = [0, 0]) {
+    color(base_end_block_color)
+        difference() {
+            compact_chamfered_end_block_body(cross_offset);
+
+            // One M12 x 1.75 socket opens on the connection face and retains
+            // the established 8.35 mm engagement depth.
+            translate([0, 0, compact_end_block_axis_length + epsilon])
                 rotate([180, 0, 0])
                     base_internal_thread_cutter(
                         base_socket_depth + epsilon
@@ -1049,8 +1268,8 @@ module base_assembled_end_block(axis, sign) {
     }
 }
 
-module platform_fit_preview() {
-    compact_threaded_base();
+module full_height_platform_fit_preview() {
+    full_height_threaded_base();
 
     for (sign = [-1, 1]) {
         base_assembled_end_block("x", sign);
@@ -1104,8 +1323,8 @@ module base_assembled_connector(axis, sign) {
     }
 }
 
-module assembled_modular_base() {
-    platform_fit_preview();
+module full_height_assembled_modular_base() {
+    full_height_platform_fit_preview();
 
     // Each 16 mm connector bridges the sleeve/end-block interface with
     // 8 mm of engagement on either side.
@@ -1113,6 +1332,161 @@ module assembled_modular_base() {
         base_assembled_connector("x", sign);
         base_assembled_connector("y", sign);
     }
+}
+
+module compact_assembled_end_block(axis, sign) {
+    axis_height = compact_lug_axis_height;
+    socket_length = axis == "x"
+        ? base_socket_x_length
+        : base_socket_y_length;
+    // X sleeves start at the compact lug. Y sleeves start outside the lower
+    // stand fork and are carried by the shared 44 mm stud.
+    socket_start = axis == "x"
+        ? platform_lug_depth / 2
+        : stand_outer_thickness / 2;
+    outer_end = socket_start
+        + socket_length
+        + compact_end_block_axis_length;
+
+    if (axis == "x") {
+        if (sign > 0) {
+            translate([socket_start, 0, axis_height])
+                rotate([0, 90, 0])
+                    base_double_socket(socket_length);
+            translate([outer_end, 0, axis_height])
+                rotate([0, -90, 0])
+                    compact_end_block([
+                        compact_end_block_vertical_offset,
+                        0
+                    ]);
+        } else {
+            translate([-socket_start, 0, axis_height])
+                rotate([0, -90, 0])
+                    base_double_socket(socket_length);
+            translate([-outer_end, 0, axis_height])
+                rotate([0, 90, 0])
+                    compact_end_block([
+                        -compact_end_block_vertical_offset,
+                        0
+                    ]);
+        }
+    } else {
+        if (sign > 0) {
+            translate([0, socket_start, axis_height])
+                rotate([-90, 0, 0])
+                    base_double_socket(socket_length);
+            translate([0, outer_end, axis_height])
+                rotate([90, 0, 0])
+                    compact_end_block([
+                        0,
+                        compact_end_block_vertical_offset
+                    ]);
+        } else {
+            translate([0, -socket_start, axis_height])
+                rotate([90, 0, 0])
+                    base_double_socket(socket_length);
+            translate([0, -outer_end, axis_height])
+                rotate([-90, 0, 0])
+                    compact_end_block([
+                        0,
+                        -compact_end_block_vertical_offset
+                    ]);
+        }
+    }
+}
+
+module compact_assembled_connector(axis, sign) {
+    axis_height = compact_lug_axis_height;
+    socket_start = axis == "x"
+        ? platform_lug_depth / 2
+        : stand_outer_thickness / 2;
+    socket_length = axis == "x"
+        ? base_socket_x_length
+        : base_socket_y_length;
+    interface = sign * (socket_start + socket_length);
+
+    if (axis == "x") {
+        if (sign > 0)
+            translate([
+                interface - base_connector_length / 2,
+                0,
+                axis_height
+            ])
+                rotate([0, 90, 0])
+                    base_threaded_connector();
+        else
+            translate([
+                interface + base_connector_length / 2,
+                0,
+                axis_height
+            ])
+                rotate([0, -90, 0])
+                    base_threaded_connector();
+    } else {
+        if (sign > 0)
+            translate([
+                0,
+                interface - base_connector_length / 2,
+                axis_height
+            ])
+                rotate([-90, 0, 0])
+                    base_threaded_connector();
+        else
+            translate([
+                0,
+                interface + base_connector_length / 2,
+                axis_height
+            ])
+                rotate([90, 0, 0])
+                    base_threaded_connector();
+    }
+}
+
+module positioned_compact_shared_stud() {
+    translate([
+        0,
+        compact_shared_stud_length / 2,
+        compact_lug_axis_height
+    ])
+        rotate([90, 0, 0])
+            compact_shared_stud();
+}
+
+module compact_platform_fit_preview() {
+    compact_threaded_base();
+    positioned_compact_shared_stud();
+
+    for (sign = [-1, 1]) {
+        compact_assembled_end_block("x", sign);
+        compact_assembled_end_block("y", sign);
+    }
+}
+
+module compact_assembled_modular_base() {
+    compact_platform_fit_preview();
+
+    for (sign = [-1, 1]) {
+        compact_assembled_connector("x", sign);
+        compact_assembled_connector("y", sign);
+    }
+}
+
+module selected_platform_fit_preview(
+    selected_configuration = configuration
+) {
+    if (selected_configuration == "compact")
+        compact_platform_fit_preview();
+    else
+        full_height_platform_fit_preview();
+}
+
+module selected_assembled_modular_base(
+    selected_configuration = configuration
+) {
+    if (selected_configuration == "compact")
+        compact_assembled_modular_base();
+    else
+        full_height_assembled_modular_base();
 }
 
 module external_bolt_thread(length) {
@@ -1234,25 +1608,37 @@ module assembled_joint_fastener(axis_height) {
             m12_nut();
 }
 
-module complete_assembly() {
-    stand_assembly_z = platform_lug_axis_height
+module complete_assembly(selected_configuration = configuration) {
+    selected_lug_axis_height = selected_configuration == "compact"
+        ? compact_lug_axis_height
+        : platform_lug_axis_height;
+    stand_assembly_z = selected_lug_axis_height
         - stand_lower_axis_height;
     upper_joint_axis_height = stand_assembly_z
         + stand_top_axis_height;
 
-    assembled_modular_base();
+    selected_assembled_modular_base(selected_configuration);
 
     translate([0, 0, stand_assembly_z])
         vertical_support_stand();
 
-    // Start from the vertical 90-degree position and lean the top of the
-    // holder 20 degrees toward the support stand.
-    positioned_holder_at_joint(upper_joint_axis_height, 110);
+    // Start from vertical and use the closest locking index to a 20-degree
+    // lean: 22.5 degrees, exactly six 3.75-degree index stations.
+    positioned_holder_at_joint(
+        upper_joint_axis_height,
+        assembly_holder_tilt
+    );
 
     if (show_magsafe_reference)
-        positioned_magsafe_at_joint(upper_joint_axis_height, 110);
+        positioned_magsafe_at_joint(
+            upper_joint_axis_height,
+            assembly_holder_tilt
+        );
 
-    assembled_joint_fastener(platform_lug_axis_height);
+    // The full-height base uses the ordinary bolt and nut at the lower
+    // joint. Compact replaces them with the shared 44 mm double-ended stud.
+    if (selected_configuration == "full_height")
+        assembled_joint_fastener(selected_lug_axis_height);
     assembled_joint_fastener(upper_joint_axis_height);
 }
 
@@ -1271,14 +1657,25 @@ module layout_label(label_text, position, size = label_size) {
 module current_parts_labels() {
     layout_label("MagSafe clamp ring", [-91, 12]);
     layout_label("Vertical support", [0, 28]);
-    layout_label("Threaded base", [91, 28]);
+    layout_label(
+        configuration == "compact"
+            ? "Compact threaded base"
+            : "Full-height threaded base",
+        [91, 28]
+    );
 
     layout_label("M12 long bolt", [-91, -69]);
     layout_label("M12 nut", [-54.6, -69]);
     layout_label("Hex connector", [-20.8, -69]);
     layout_label("Long sleeve", [19.5, -69]);
     layout_label("Short sleeve", [55.9, -69]);
-    layout_label("End block", [91, -69]);
+    layout_label(
+        configuration == "compact" ? "28 mm end block" : "End block",
+        [91, -69]
+    );
+    if (configuration == "compact") {
+        layout_label("44 mm shared stud", [127.4, -69]);
+    }
 }
 
 module current_parts_layout() {
@@ -1293,7 +1690,10 @@ module current_parts_layout() {
         vertical_support_stand();
 
     translate([91, 52.5, 0])
-        compact_threaded_base();
+        if (configuration == "compact")
+            compact_threaded_base();
+        else
+            full_height_threaded_base();
 
     // Fasteners and one representative of every modular base component.
     // Their former X spacing is increased by 30 percent around X=0.
@@ -1313,7 +1713,15 @@ module current_parts_layout() {
         base_double_socket(base_socket_y_length);
 
     translate([91, -52.5, 0])
-        base_end_block();
+        if (configuration == "compact")
+            compact_end_block();
+        else
+            base_end_block();
+
+    if (configuration == "compact") {
+        translate([127.4, -52.5, 0])
+            compact_shared_stud();
+    }
 
     if (show_labels)
         current_parts_labels();
@@ -1332,8 +1740,16 @@ assert(
         || part == "base_socket_x"
         || part == "base_socket_y"
         || part == "base_end_block"
+        || part == "compact_end_block"
         || part == "base_connector"
-        || part == "platform_preview",
+        || part == "compact_stud"
+        || part == "platform_preview"
+        || part == "assembly_full_height"
+        || part == "assembly_compact"
+        || part == "platform_full_height"
+        || part == "platform_compact"
+        || part == "platform_preview_full_height"
+        || part == "platform_preview_compact",
     str("Unknown part: ", part)
 );
 
@@ -1345,6 +1761,10 @@ if (part == "all") {
             magsafe_reference();
 } else if (part == "assembly") {
     complete_assembly();
+} else if (part == "assembly_full_height") {
+    complete_assembly("full_height");
+} else if (part == "assembly_compact") {
+    complete_assembly("compact");
 } else if (part == "holder") {
     circle_holder();
 } else if (part == "stand_bolt") {
@@ -1358,6 +1778,13 @@ if (part == "all") {
 } else if (part == "stand_long_side") {
     vertical_support_stand_long_side_for_print();
 } else if (part == "platform") {
+    if (configuration == "compact")
+        compact_threaded_base();
+    else
+        full_height_threaded_base();
+} else if (part == "platform_full_height") {
+    full_height_threaded_base();
+} else if (part == "platform_compact") {
     compact_threaded_base();
 } else if (part == "base_socket_x") {
     base_double_socket(base_socket_x_length);
@@ -1365,8 +1792,16 @@ if (part == "all") {
     base_double_socket(base_socket_y_length);
 } else if (part == "base_end_block") {
     base_end_block();
+} else if (part == "compact_end_block") {
+    compact_end_block();
 } else if (part == "base_connector") {
     base_threaded_connector();
+} else if (part == "compact_stud") {
+    compact_shared_stud();
 } else if (part == "platform_preview") {
-    platform_fit_preview();
+    selected_platform_fit_preview();
+} else if (part == "platform_preview_full_height") {
+    full_height_platform_fit_preview();
+} else if (part == "platform_preview_compact") {
+    compact_platform_fit_preview();
 }
