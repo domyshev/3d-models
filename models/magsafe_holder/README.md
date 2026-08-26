@@ -29,10 +29,12 @@ version 0.1 artifacts unchanged under
 
 Both configurations use complementary radial indexing between the MagSafe
 clamp arms and the upper support fork. The Compact configuration has been
-printed and assembled successfully. A slight rocking motion was observed on the
-test surface; double-sided mounting tape, with a second layer under one foot,
-provided a simple and effective correction. This practical observation is kept
-as part of the version 0.2 release rather than hidden by an untested redesign.
+printed and assembled successfully. Its feet are attached to the tabletop with
+double-sided mounting tape. A slight rocking motion caused by a small height
+mismatch was corrected with a second tape layer under the affected rear foot,
+while the other contact points use one layer. This practical observation is
+kept as part of the version 0.2 release rather than hidden by an untested
+redesign.
 
 ### Version 0.2 artifacts
 
@@ -295,9 +297,11 @@ preserving the tested arm envelope and fitted width.
   and lateral base members. It is the larger, previously established layout.
 - The Compact configuration reduces this complexity by placing the lower fork,
   central lug, and lateral sleeves on one shared stud axis.
-- The printed Compact test showed a small amount of rocking. Double-sided tape
-  corrected it; users should verify all four contact points on their own print
-  surface before installing a phone.
+- The Compact feet are secured to the tabletop with double-sided mounting tape.
+  The printed test showed a small amount of rocking, corrected by using a
+  second tape layer under the affected rear foot and one layer under the other
+  contact points. Users should verify all four contacts before installing a
+  phone.
 
 ## Testing and printing
 
