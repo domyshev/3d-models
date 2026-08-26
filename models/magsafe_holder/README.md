@@ -104,9 +104,21 @@ centered M12 threaded socket and presents a complete flat face to the table.
 
 ## Photos
 
+### Compact configuration
+
+| Front with MagSafe | Front without MagSafe |
+| --- | --- |
+| ![Front view of the Compact MagSafe holder with the charger installed](images/compact/front-with-magsafe.png) | ![Front view of the Compact MagSafe holder with the retaining ring empty](images/compact/front-empty.png) |
+
+| Rear with MagSafe | Rear without MagSafe |
+| --- | --- |
+| ![Rear view of the Compact MagSafe holder with the charger installed](images/compact/rear-with-magsafe.png) | ![Rear view of the Compact MagSafe holder with the retaining ring empty](images/compact/rear-empty.png) |
+
+### Full-Height configuration
+
 | Front view | Rear view | Retaining ring without MagSafe |
 | --- | --- | --- |
-| ![Front view of the assembled MagSafe holder](images/magsafe-holder-front.png) | ![Rear view of the assembled MagSafe holder](images/magsafe-holder-rear.png) | ![MagSafe holder with the charger removed](images/magsafe-holder-empty-clamp.png) |
+| ![Front view of the assembled Full-Height MagSafe holder](images/full-height/front.png) | ![Rear view of the assembled Full-Height MagSafe holder](images/full-height/rear.png) | ![Full-Height MagSafe holder with the charger removed](images/full-height/empty-clamp.png) |
 
 ## Apple MagSafe compatibility
 
