@@ -13,6 +13,27 @@ const scene = new THREE.Scene();
 scene.background = null;
 scene.up.set(0, 0, 1);
 const viewport = $('viewport');
+const darkTheme = () => document.documentElement.dataset.theme === 'dark';
+const modelColor = () => darkTheme() ? 0xc58a9e : 0x975569;
+
+function applySceneTheme() {
+  if (mesh) mesh.material.color.setHex(modelColor());
+  if (grid) {
+    const positions = grid.geometry.attributes.position;
+    const colors = grid.geometry.attributes.color;
+    const major = new THREE.Color(darkTheme() ? 0x80606e : 0xbb9ba7);
+    const minor = new THREE.Color(darkTheme() ? 0x59404c : 0xd7c3c9);
+    for (let i = 0; i < positions.count; i += 2) {
+      const center = positions.getX(i) === positions.getX(i + 1) ? positions.getX(i) === 0 : positions.getZ(i) === 0;
+      const color = center ? major : minor;
+      colors.setXYZ(i, color.r, color.g, color.b);
+      colors.setXYZ(i + 1, color.r, color.g, color.b);
+    }
+    colors.needsUpdate = true;
+    grid.material.opacity = darkTheme() ? 0.5 : 0.65;
+  }
+}
+window.addEventListener('themechange', applySceneTheme);
 
 function initializeScene() {
   renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -27,11 +48,11 @@ function initializeScene() {
   controls.enableDamping = true;
   controls.dampingFactor = 0.08;
   controls.autoRotateSpeed = 1;
-  scene.add(new THREE.HemisphereLight(0xf3fff4, 0x697a68, 2.3));
+  scene.add(new THREE.HemisphereLight(0xfff8fa, 0x78636c, 2.3));
   const key = new THREE.DirectionalLight(0xffffff, 3.2);
   key.position.set(-150, -100, 260);
   scene.add(key);
-  const rim = new THREE.DirectionalLight(0xb8f38a, 1.3);
+  const rim = new THREE.DirectionalLight(0xf1cad7, 1.3);
   rim.position.set(180, 100, 100);
   scene.add(rim);
   new ResizeObserver(() => {
@@ -136,7 +157,7 @@ async function selectModel(model) {
     geometry.computeVertexNormals();
     geometry.computeBoundingSphere();
     radius = Math.max(geometry.boundingSphere.radius, 0.1);
-    mesh = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial({ color: 0xc4d9b7, roughness: 0.6, metalness: 0.12, side: THREE.DoubleSide, wireframe: $('wireframe').getAttribute('aria-pressed') === 'true' }));
+    mesh = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial({ color: modelColor(), roughness: 0.6, metalness: 0.12, side: THREE.DoubleSide, wireframe: $('wireframe').getAttribute('aria-pressed') === 'true' }));
     scene.add(mesh);
     if (grid) { scene.remove(grid); grid.geometry.dispose(); grid.material.dispose(); }
     const gridSize = Math.pow(10, Math.ceil(Math.log10(radius * 3)));
@@ -146,6 +167,7 @@ async function selectModel(model) {
     grid.material.transparent = true;
     grid.material.opacity = 0.42;
     scene.add(grid);
+    applySceneTheme();
     $('dimensions').textContent = [size.x, size.y, size.z].map((n) => n.toFixed(1)).join(' × ');
     $('triangles').textContent = (geometry.attributes.position.count / 3).toLocaleString('ru-RU');
     $('status').textContent = '';

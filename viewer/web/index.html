@@ -3,15 +3,16 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#101513">
+  <meta name="theme-color" content="#faf7f7">
   <meta name="description" content="Коллекция моделей для 3D-печати: просмотр, размеры и скачивание STL.">
   <title>3D · iliago</title>
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <script src="/theme.js"></script>
   <link rel="stylesheet" href="/style.css">
   <script type="module" src="/app.js"></script>
 </head>
 <body>
-  <header class="topbar"><a class="brand" href="/"><span class="brand-icon">3D</span><span>iliago<span class="muted"> / models</span></span></a><span class="header-note">Мастерская 3D-печати</span><span id="connection" class="connection">Подключение…</span></header>
+  <header class="topbar"><a class="brand" href="/"><span class="brand-icon">3D</span><span>iliago<span class="muted"> / models</span></span></a><span class="header-note">Мастерская 3D-печати</span><span id="connection" class="connection">Подключение…</span><select id="theme" class="theme-select" aria-label="Цветовая тема"><option value="system">◐ Авто</option><option value="light">☀ Светлая</option><option value="dark">☾ Тёмная</option></select></header>
   <main>
     <aside class="library">
       <div class="library-heading"><div><p class="eyebrow">КОЛЛЕКЦИЯ</p><h1>Модели<span id="count">0</span></h1></div><button id="refresh" class="icon-button" title="Обновить список" aria-label="Обновить список">↻</button></div>

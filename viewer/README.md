@@ -6,6 +6,10 @@ No external CDN, account, upload form or server-side mesh rendering is required.
 
 ## Interface
 
+The light and dark themes share a burgundy palette. The header theme selector
+follows the device by default; explicit choices persist in local storage and
+update the interface, model material and floor grid together.
+
 - Newest source modification times first, with the newest model selected on entry.
 - Recursive catalog, filename/path search and alternative sorting.
 - Orbit, zoom, wireframe, optional automatic rotation and reset view.
