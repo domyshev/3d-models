@@ -1,0 +1,9 @@
+{
+  "name": "iliago-model-gallery",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {"build": "esbuild web/viewer.js --bundle --minify --format=esm --outfile=web/app.js"},
+  "dependencies": {"three": "0.180.0"},
+  "devDependencies": {"esbuild": "0.25.11"}
+}

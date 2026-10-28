@@ -1,0 +1,14 @@
+# Administrator-owned route, independent of the restricted app-* publisher.
+https://3d.iliago.com {
+    encode zstd gzip
+    reverse_proxy model-gallery:8080
+}
+
+http://3d.iliago.com:8080 {
+    handle /.well-known/acme-challenge/* {
+        reverse_proxy 127.0.0.1:9081
+    }
+    handle {
+        redir https://3d.iliago.com{uri} 308
+    }
+}

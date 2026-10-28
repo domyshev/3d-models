@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101513">
+  <meta name="description" content="Коллекция моделей для 3D-печати: просмотр, размеры и скачивание STL.">
+  <title>3D · iliago</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/style.css">
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <header class="topbar"><a class="brand" href="/"><span class="brand-icon">3D</span><span>iliago<span class="muted"> / models</span></span></a><span class="header-note">Мастерская 3D-печати</span><span id="connection" class="connection">Подключение…</span></header>
+  <main>
+    <aside class="library">
+      <div class="library-heading"><div><p class="eyebrow">КОЛЛЕКЦИЯ</p><h1>Модели<span id="count">0</span></h1></div><button id="refresh" class="icon-button" title="Обновить список" aria-label="Обновить список">↻</button></div>
+      <label class="search"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Найти модель…" aria-label="Поиск моделей"></label>
+      <label class="sort">Порядок <select id="sort"><option value="newest">Сначала новые</option><option value="oldest">Сначала старые</option><option value="name">По названию</option></select></label>
+      <div id="model-list" class="model-list" aria-label="Список моделей"></div>
+      <p class="library-footer">STL · Автоматическое обновление</p>
+    </aside>
+    <section class="workspace" aria-label="Просмотр модели">
+      <div class="model-heading"><div><p id="folder" class="eyebrow">ПРОСМОТР МОДЕЛИ</p><h2 id="model-title">Ваша следующая деталь</h2><p id="model-subtitle" class="model-subtitle">Выберите модель из коллекции</p></div><a id="download" class="download disabled" aria-disabled="true">↓ <span>Скачать STL</span></a></div>
+      <div class="viewport" id="viewport">
+        <div class="viewport-label"><span class="live-dot"></span>3D PREVIEW</div>
+        <div id="status" class="status" role="status">Загрузка коллекции…</div>
+        <div class="view-toolbar" aria-label="Настройки просмотра"><button id="reset" title="Вернуть исходный вид">↺ <span>Сбросить вид</span></button><span class="toolbar-divider"></span><button id="wireframe" aria-pressed="false">Сетка</button><button id="rotate" aria-pressed="false">Вращение</button></div>
+        <div class="axes" aria-label="Оси координат"><span class="axis-z">Z ↑</span><span class="axis-x">X ↗</span><span class="axis-y">Y →</span></div>
+      </div>
+      <div class="bottom-bar"><div class="stats"><span><small>РАЗМЕРЫ, ММ</small><strong id="dimensions">—</strong></span><span><small>ТРЕУГОЛЬНИКИ</small><strong id="triangles">—</strong></span><span><small>ФАЙЛ</small><strong id="file-size">—</strong></span></div><p class="gesture-hint">Вращайте · Приближайте · Исследуйте</p></div>
+    </section>
+  </main>
+</body>
+</html>

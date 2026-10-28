@@ -1,0 +1,4 @@
+node_modules/
+web/app.js
+__pycache__/
+.DS_Store

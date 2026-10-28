@@ -1,0 +1,21 @@
+services:
+  viewer:
+    build: .
+    image: iliago-3d:1.0.0
+    container_name: model-gallery
+    restart: unless-stopped
+    read_only: true
+    user: '10001:10001'
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    pids_limit: 64
+    mem_limit: 256m
+    volumes:
+      - /srv/3d-sync/models:/models:ro
+    networks: [viewer, ingress]
+networks:
+  viewer:
+    internal: true
+  ingress:
+    external: true
+    name: kai-public_edge
