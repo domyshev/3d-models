@@ -1,8 +1,13 @@
 # MagSafe Holder v0.3
 
-## Release v0.3.0
+## Release v0.3.1
 
 Released on 2026-10-30.
+
+Version 0.3.1 is a presentation-only update to v0.3.0. The GitHub release page
+now displays all four assembly renders, and each PNG is also a downloadable
+release asset. Geometry, STL files, print settings, and the Bambu project are
+unchanged from v0.3.0. These images are CAD renders, not photographs.
 
 Version 0.3 has one design, named simply **MagSafe Holder v0.3**. There is no
 Compact or Full-Height selection for this version. This self-contained snapshot

@@ -2,6 +2,10 @@
 
 ## Version 0.3
 
+The latest patch is [v0.3.1](https://github.com/domyshev/3d-models/releases/tag/v0.3.1),
+which adds all four assembly renders directly to the release page and its
+downloads. Printable files and print settings are unchanged from v0.3.0.
+
 Version 0.3 is a single eight-piece design, named simply **MagSafe Holder v0.3**.
 It has no Compact or Full-Height selection. The two long and two short legs
 serve the X and Y axes of the same holder, not separate height variants.
