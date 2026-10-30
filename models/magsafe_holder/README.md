@@ -2,9 +2,9 @@
 
 ## Version 0.3
 
-The latest patch is [v0.3.1](https://github.com/domyshev/3d-models/releases/tag/v0.3.1),
-which adds all four assembly renders directly to the release page and its
-downloads. Printable files and print settings are unchanged from v0.3.0.
+The latest patch is [v0.3.2](https://github.com/domyshev/3d-models/releases/tag/v0.3.2),
+which adds real prototype photos, illustrated MagSafe dimensions, and pastel
+assembly views. Printable files and print settings are unchanged from v0.3.0.
 
 Version 0.3 is a single eight-piece design, named simply **MagSafe Holder v0.3**.
 It has no Compact or Full-Height selection. The two long and two short legs
@@ -19,6 +19,35 @@ infill settings and testing notes. The design and core components have been
 physically tested, including a reprint of the latest textured ring. Not every
 minor surface revision has been reprinted; the optimized infill profile has
 been checked by slicing but has not yet been physically load-tested.
+
+## Printed prototype — v0.3
+
+| Front-left | Front-right |
+| --- | --- |
+| ![Printed holder, front-left](releases/v0.3/images/photos/stand-front-left.png) | ![Printed holder, front-right](releases/v0.3/images/photos/stand-front-right.png) |
+
+| Back-right | Back-left |
+| --- | --- |
+| ![Printed holder, back-right](releases/v0.3/images/photos/stand-back-right.png) | ![Printed holder, back-left](releases/v0.3/images/photos/stand-back-left.png) |
+
+These are real photographs with AI-assisted background and lighting cleanup.
+
+## Apple MagSafe compatibility — check before printing
+
+The ring was physically tested with the original Apple MagSafe Charger shown in
+the [illustrated measurements](releases/v0.3/README.md#magsafe-compatibility--check-before-printing).
+Direct caliper measurements of this unit are:
+
+- **Outside diameter: 56 mm.**
+- **Gray rim thickness: 5.5 mm.**
+- **Maximum overall thickness including the white charging face: 5.7 mm.**
+
+The maximum thickness is not the height of the white protrusion. These dimensions
+apply to the measured unit, not every Apple revision. Measure your charger before
+printing: other revisions and third-party chargers are not confirmed to fit.
+This is compatibility with the charger, not a specific iPhone model.
+Charger photos and caliper-based annotations appear before the
+[pastel assembly views](releases/v0.3/README.md#assembly-views) in the release notes.
 
 The following sections document the released v0.2 configurations.
 
@@ -141,19 +170,6 @@ centered M12 threaded socket and presents a complete flat face to the table.
 | Front view | Rear view | Retaining ring without MagSafe |
 | --- | --- | --- |
 | ![Front view of the assembled Full-Height MagSafe holder](images/full-height/front.png) | ![Rear view of the assembled Full-Height MagSafe holder](images/full-height/rear.png) | ![Full-Height MagSafe holder with the charger removed](images/full-height/empty-clamp.png) |
-
-## Apple MagSafe compatibility
-
-The official Apple MagSafe Charger was measured with calipers:
-
-- outer diameter: **56 mm**;
-- axial edge thickness: **5.5 mm**;
-- the central magnetic surface protrudes approximately **0.8 mm** beyond the
-  edge;
-- working holder pocket depth: **4.7 mm**.
-
-Measure other charger revisions before printing. Even a small dimensional
-difference can noticeably change the clamping force.
 
 ## Release files
 

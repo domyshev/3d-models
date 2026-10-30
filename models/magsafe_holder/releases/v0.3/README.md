@@ -1,13 +1,15 @@
 # MagSafe Holder v0.3
 
-## Release v0.3.1
+## Release v0.3.2
 
 Released on 2026-10-30.
 
-Version 0.3.1 is a presentation-only update to v0.3.0. The GitHub release page
-now displays all four assembly renders, and each PNG is also a downloadable
-release asset. Geometry, STL files, print settings, and the Bambu project are
-unchanged from v0.3.0. These images are CAD renders, not photographs.
+Version 0.3.2 adds real printed-prototype photographs, illustrated charger
+compatibility measurements, and pastel assembly views. The image sections are
+ordered: printed holder, measured charger, then CAD assembly. Photographic
+backgrounds were retouched with AI assistance; renders are labeled separately.
+Geometry, individual STL files, OpenSCAD sources, and the Bambu project remain
+unchanged from v0.3.0. Previous releases and their tags remain available.
 
 Version 0.3 has one design, named simply **MagSafe Holder v0.3**. There is no
 Compact or Full-Height selection for this version. This self-contained snapshot
@@ -25,6 +27,59 @@ a textured domed end. The long leg extends only the smooth root of the short
 leg; both ends have identical dimensions.
 Both leg lengths belong to the same holder: two long legs run along X and two
 short legs along Y. They are not different stand-height variants.
+
+## Printed prototype
+
+Real photographs of the printed holder. Backgrounds and lighting have been
+retouched with AI assistance.
+
+| 1 · Front-left | 2 · Front-right |
+| --- | --- |
+| ![Printed holder, front-left](images/photos/stand-front-left.png) | ![Printed holder, front-right](images/photos/stand-front-right.png) |
+
+| 3 · Back-right | 4 · Back-left |
+| --- | --- |
+| ![Printed holder, back-right](images/photos/stand-back-right.png) | ![Printed holder, back-left](images/photos/stand-back-left.png) |
+
+## MagSafe compatibility — check before printing
+
+The retaining ring was physically tested with the original Apple MagSafe
+Charger shown below. Direct caliper measurements of this specific unit:
+
+- **Outside diameter: 56 mm.**
+- **Gray rim thickness: 5.5 mm.**
+- **Maximum overall thickness, including the white charging face: 5.7 mm.**
+
+The 5.7 mm value is the total thickness, not the height of the white protrusion.
+These values do not establish compatibility with every Apple revision. Compare
+your charger before printing; other revisions and third-party chargers have
+not been confirmed to fit. Compatibility refers to the charging puck, not to
+a particular iPhone model.
+
+| 1 · Front | 2 · Back |
+| --- | --- |
+| ![MagSafe front, outside diameter 56 mm](images/compatibility/charger-front-diameter.png) | ![MagSafe back, outside diameter 56 mm](images/compatibility/charger-back-diameter.png) |
+
+![3 · Side: 5.5 mm gray rim thickness; 5.7 mm maximum overall thickness](images/compatibility/charger-side-thickness.png)
+
+Photos retouched with AI assistance to remove fingers and harsh shadows.
+Dimension labels reproduce the author's caliper measurements; these are
+illustrative photographs, not scale drawings. No CAD geometry or fit parameters
+have been changed based on these documentation measurements.
+
+## Assembly views
+
+CAD renders, not photographs. Identical parts share a pastel color; different
+component types use different colors. These PNGs are also included separately
+in the release files.
+
+| Front | Back |
+| --- | --- |
+| ![Pastel assembly, front](images/assembly/front.png) | ![Pastel assembly, back](images/assembly/back.png) |
+
+| Front-left | Back-right |
+| --- | --- |
+| ![Pastel assembly, front-left](images/assembly/front-left.png) | ![Pastel assembly, back-right](images/assembly/back-right.png) |
 
 ## Files and views
 
@@ -66,18 +121,13 @@ Individual-part selectors are `"ring"`, `"support"`, `"leg_x"`, `"leg_y"`,
 `"bolt"` and `"nut"`. This release does not depend on the experimental
 `details/` tree.
 
-### Assembly images
+### Image files
 
-No CAD software is needed to view the PNG files in
-[images/assembly/](images/assembly/):
-
-| Front-left perspective | Back-right perspective |
-| --- | --- |
-| ![Assembled holder, front-left perspective](images/assembly/front-left.png) | ![Assembled holder, back-right perspective](images/assembly/back-right.png) |
-
-| Front | Back |
-| --- | --- |
-| ![Assembled holder, front view](images/assembly/front.png) | ![Assembled holder, back view](images/assembly/back.png) |
+The galleries above use files under [images/photos/](images/photos/),
+[images/compatibility/](images/compatibility/), and
+[images/assembly/](images/assembly/). Individual PNGs are also attached to the
+GitHub release. Pastel colors distinguish component types, not required print
+colors; identical components share a color.
 
 ## Bill of materials and print strength
 
