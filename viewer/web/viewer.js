@@ -3,8 +3,8 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { STLLoader } from 'three/addons/loaders/STLLoader.js';
 
 const $ = (id) => document.getElementById(id);
-const formatSize = (size) => size < 1024 * 1024 ? `${(size / 1024).toFixed(0)} КБ` : `${(size / 1024 / 1024).toFixed(1)} МБ`;
-const formatDate = (date) => new Date(date * 1000).toLocaleString('ru-RU', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+const formatSize = (size) => size < 1024 * 1024 ? `${(size / 1024).toFixed(0)} KB` : `${(size / 1024 / 1024).toFixed(1)} MB`;
+const formatDate = (date) => new Date(date * 1000).toLocaleString('en-GB', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
 const cube = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="m12 2 9 5v10l-9 5-9-5V7zM3 7l9 5 9-5M12 12v10M7.5 4.5l9 5"/></svg>';
 let models = [], selected = null, selectedVersion = null, mesh = null, grid = null;
 let loadSerial = 0, activeRequest = null, renderer = null, controls = null, camera = null;
@@ -41,7 +41,7 @@ function initializeScene() {
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.setClearColor(0x000000, 0);
   viewport.prepend(renderer.domElement);
-  renderer.domElement.setAttribute('aria-label', 'Интерактивная 3D-модель. Перетаскивайте для вращения, используйте колесо для масштаба.');
+  renderer.domElement.setAttribute('aria-label', 'Interactive 3D model. Drag to orbit and scroll to zoom.');
   camera = new THREE.PerspectiveCamera(38, 1, 0.1, 10000);
   camera.up.set(0, 0, 1);
   controls = new OrbitControls(camera, renderer.domElement);
@@ -93,7 +93,7 @@ function renderList() {
   if (!filtered.length) {
     const empty = document.createElement('p');
     empty.className = 'empty';
-    empty.textContent = term ? 'Ничего не найдено. Попробуйте другое название.' : 'Коллекция пока пуста. Новые STL появятся здесь автоматически.';
+    empty.textContent = term ? 'No matches. Try another name.' : 'The collection is empty. New STL files will appear automatically.';
     list.append(empty);
   }
   for (const model of filtered) {
@@ -110,7 +110,7 @@ function renderList() {
     name.textContent = model.name.replace(/\.stl$/i, '').replace(/^\d{4}-\d{2}-\d{2}_/, '').replaceAll('_', ' ');
     const meta = document.createElement('span');
     meta.className = 'card-meta';
-    meta.textContent = `${new Date(model.modified * 1000).toLocaleDateString('ru-RU')} · ${formatSize(model.size)}`;
+    meta.textContent = `${new Date(model.modified * 1000).toLocaleDateString('en-GB')} · ${formatSize(model.size)}`;
     body.append(name, meta);
     button.append(icon, body);
     button.title = model.id;
@@ -129,7 +129,7 @@ async function selectModel(model) {
   const hash = new URLSearchParams({ model: model.id });
   history.replaceState(null, '', `#${hash}`);
   $('model-title').textContent = model.name.replace(/\.stl$/i, '').replace(/^\d{4}-\d{2}-\d{2}_/, '').replaceAll('_', ' ');
-  $('folder').textContent = model.folder === '.' ? 'КОЛЛЕКЦИЯ / STL' : model.folder;
+  $('folder').textContent = model.folder === '.' ? 'COLLECTION / STL' : model.folder;
   $('model-subtitle').textContent = `${formatDate(model.modified)} · ${model.name}`;
   $('download').href = model.url;
   $('download').download = model.name;
@@ -138,7 +138,7 @@ async function selectModel(model) {
   $('file-size').textContent = formatSize(model.size);
   $('dimensions').textContent = '—';
   $('triangles').textContent = '—';
-  $('status').textContent = renderer ? 'Загрузка модели…' : '3D недоступно в этом браузере. STL можно скачать.';
+  $('status').textContent = renderer ? 'Loading model…' : '3D is unavailable in this browser. You can still download the STL.';
   if (!renderer) return;
   if (mesh) { scene.remove(mesh); mesh.geometry.dispose(); mesh.material.dispose(); mesh = null; }
   try {
@@ -169,11 +169,11 @@ async function selectModel(model) {
     scene.add(grid);
     applySceneTheme();
     $('dimensions').textContent = [size.x, size.y, size.z].map((n) => n.toFixed(1)).join(' × ');
-    $('triangles').textContent = (geometry.attributes.position.count / 3).toLocaleString('ru-RU');
+    $('triangles').textContent = (geometry.attributes.position.count / 3).toLocaleString('en-GB');
     $('status').textContent = '';
     resetView();
   } catch (error) {
-    if (serial === loadSerial && error.name !== 'AbortError') $('status').textContent = 'Не удалось открыть модель. Попробуйте обновить список или скачайте STL.';
+    if (serial === loadSerial && error.name !== 'AbortError') $('status').textContent = 'Could not open the model. Refresh the list or download the STL.';
   }
 }
 
@@ -186,22 +186,22 @@ async function refresh() {
     if (!response.ok) throw new Error('Catalog unavailable');
     const data = await response.json();
     models = data.models;
-    $('connection').textContent = 'Коллекция обновлена';
+    $('connection').textContent = 'Collection updated';
     $('connection').classList.remove('error');
     renderList();
     const requested = new URLSearchParams(location.hash.slice(1)).get('model');
     const current = selected && models.find((m) => m.id === selected.id);
     if (!selected && models.length) await selectModel(models.find((m) => m.id === requested) || models[0]);
     else if (current && current.version !== selectedVersion) await selectModel(current);
-    else if (!models.length) $('status').textContent = 'Здесь появятся ваши STL-модели';
+    else if (!models.length) $('status').textContent = 'Your STL models will appear here';
   } catch {
-    $('connection').textContent = 'Нет связи · повторим автоматически';
+    $('connection').textContent = 'Disconnected · retrying automatically';
     $('connection').classList.add('error');
-    if (!selected) $('status').textContent = 'Не удалось загрузить коллекцию. Повторяем подключение…';
+    if (!selected) $('status').textContent = 'Could not load the collection. Reconnecting…';
   } finally { refreshing = false; }
 }
 
-try { initializeScene(); } catch { $('status').textContent = '3D недоступно в этом браузере. STL можно скачать.'; }
+try { initializeScene(); } catch { $('status').textContent = '3D is unavailable in this browser. You can still download the STL.'; }
 $('search').addEventListener('input', renderList);
 $('sort').addEventListener('change', renderList);
 $('refresh').addEventListener('click', refresh);

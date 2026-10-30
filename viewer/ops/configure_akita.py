@@ -12,7 +12,7 @@ NAME = '3d.iliago.com'
 TARGET = 'home-ingress.iliago.com'
 CARD = '''<a class="card" href="https://3d.iliago.com/">
 <div class="top"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m12 2 9 5v10l-9 5-9-5V7z M3 7l9 5 9-5 M12 12v10"/></svg></span><span class="arrow" aria-hidden="true">↗</span></div>
-<h2>3D-модели</h2><p>Коллекция STL: просмотр и скачивание</p><span class="host">3d.iliago.com</span>
+<h2>3D Models</h2><p>STL collection: preview and download</p><span class="host">3d.iliago.com</span>
 </a>
 '''
 
