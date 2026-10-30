@@ -9,6 +9,11 @@
 - SHA-256: `e6e97bac49814bec33ecdbe8641664497b6989455d84bdba0282e5f6562fb600`
 - Local modifications: none
 
+The v0.3 source snapshot also vendors this library under
+`releases/v0.3/src/components/shared/vendor/dan-kirshner-threads/2.7/threads.scad`.
+The reusable component library keeps a copy under
+`../../details/shared/vendor/dan-kirshner-threads/2.7/threads.scad`.
+
 The original download URL is not embedded in the vendored file. A matching
 public copy of version 2.7 is available at:
 

@@ -10,6 +10,14 @@ notices.
 - [Modular MagSafe Holder](models/magsafe_holder/README.md) — a tested,
   adjustable desktop holder for the official Apple MagSafe Charger, built as
   a modular OpenSCAD construction system.
+  [Latest release: v0.3.0](models/magsafe_holder/releases/v0.3/README.md) combines
+  one eight-piece design with textured surfaces and locally reinforced infill.
+
+## Component library
+
+The [details library](details/README.md) documents independently reusable parts
+and their design evolution. It is not required to open or print the projects
+in `models/`. Experimental component variants are kept separate from releases.
 
 ## Repository conventions
 

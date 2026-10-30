@@ -1,6 +1,22 @@
 # Modular MagSafe Holder
 
-## Project status
+## Version 0.3
+
+Version 0.3 is a single eight-piece design, named simply **MagSafe Holder v0.3**.
+It has no Compact or Full-Height selection. The two long and two short legs
+serve the X and Y axes of the same holder, not separate height variants.
+
+The release files are under
+[releases/v0.3/](releases/v0.3/README.md), with a self-contained OpenSCAD source,
+individual STLs, and one A1 mini Bambu Studio project. It combines the latest
+indexed outer-textured ring, hollow support without a leveling screw, rounded
+integral feet, and textured M12 fasteners. See the release notes for per-object
+infill settings and testing notes. The design and core components have been
+physically tested, including a reprint of the latest textured ring. Not every
+minor surface revision has been reprinted; the optimized infill profile has
+been checked by slicing but has not yet been physically load-tested.
+
+The following sections document the released v0.2 configurations.
 
 Version **0.2** provides both **Full-Height** and **Compact** configurations.
 The stand has been assembled and tested as a functional desktop MagSafe holder.
@@ -11,9 +27,9 @@ The project is designed in OpenSCAD as a modular construction system. Individual
 parts can be adjusted, reprinted, and replaced without rebuilding the entire
 stand.
 
-## Version 0.2
+## Version 0.2 (historical)
 
-The current source provides two selectable configurations while keeping the
+The legacy v0.2 source provides two selectable configurations while keeping the
 version 0.1 artifacts unchanged under
 [`releases/v0.1/`](releases/v0.1/):
 
@@ -104,7 +120,7 @@ an estimated **111.00 g** of filament and approximately **4 hours 32 minutes**.
 The four compact end supports are **28 × 28 × 12 mm blocks**. Each has one
 centered M12 threaded socket and presents a complete flat face to the table.
 
-## Photos
+## Version 0.2 photos
 
 ### Compact configuration
 
@@ -137,7 +153,20 @@ difference can noticeably change the clamping force.
 
 ## Release files
 
-Version 0.2 is the current release. It includes individual STL files split into
+The v0.3 release contains one complete eight-piece print set:
+
+- [six unique STL files](releases/v0.3/stl/), with two copies of each leg size;
+- [one A1 mini Bambu Studio project](releases/v0.3/bambu/magsafe_holder_v0.3_a1_mini.3mf);
+- [self-contained source](releases/v0.3/src/magsafe_holder.scad) with layout,
+  assembly, and individual-part views;
+- [v0.3 print settings and testing notes](releases/v0.3/README.md).
+
+There is no configuration-specific split in v0.3. Earlier release artifacts are
+retained unchanged.
+
+### Earlier release files
+
+Version 0.2 includes individual STL files split into
 shared and configuration-specific directories, plus one complete single-plate
 Bambu Studio project for each configuration:
 
@@ -183,7 +212,28 @@ for the Bambu Lab A1 mini. The complete one-plate print uses **103.22 g**
 
 ## OpenSCAD view modes
 
-Open [`magsafe_holder.scad`](src/magsafe_holder.scad) and change the `part`
+For v0.3, open the [release source](releases/v0.3/src/magsafe_holder.scad).
+Change the selector at the beginning of the file:
+
+```scad
+part = "layout"; // Or "assembly" for the assembled holder.
+show_labels = true;
+```
+
+Individual-part selectors are `"ring"`, `"support"`, `"leg_x"`, `"leg_y"`,
+`"bolt"`, and `"nut"`. Labels appear only in the layout. No configuration or
+height-variant selector is needed for v0.3.
+
+The selector belongs to the SCAD source, not to an STL. After changing it,
+press F5 or choose Design > Preview. There is no separate assembled STL supplied;
+the release notes explain [how to view and optionally export the assembly](releases/v0.3/README.md#how-to-see-the-assembled-holder).
+You can also open the [assembly PNG views](releases/v0.3/images/assembly/)
+without installing CAD software. The assembled geometry is for visualization,
+not print-in-place manufacturing.
+
+### Legacy v0.2 view modes
+
+For historical v0.2 designs, open [the legacy source](src/magsafe_holder.scad) and change the `part`
 value near the beginning of the file to switch between presentation, assembly,
 and individual-part views:
 
