@@ -18,7 +18,7 @@ const darkTheme = () => document.documentElement.dataset.theme === 'dark';
 const modelColor = () => darkTheme() ? 0xc58a9e : 0x975569;
 
 function applySceneTheme() {
-  if (mesh) mesh.material.color.setHex(modelColor());
+  if (mesh && !mesh.material.vertexColors) mesh.material.color.setHex(modelColor());
   if (grid) {
     const positions = grid.geometry.attributes.position;
     const colors = grid.geometry.attributes.color;
@@ -177,7 +177,7 @@ async function selectModel(model) {
     geometry.computeVertexNormals();
     geometry.computeBoundingSphere();
     radius = Math.max(geometry.boundingSphere.radius, 0.1);
-    mesh = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial({ color: modelColor(), roughness: 0.6, metalness: 0.12, side: THREE.DoubleSide, wireframe: $('wireframe').getAttribute('aria-pressed') === 'true' }));
+    mesh = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial({ color: geometry.hasColors ? 0xffffff : modelColor(), vertexColors: Boolean(geometry.hasColors), roughness: 0.6, metalness: 0.12, side: THREE.DoubleSide, wireframe: $('wireframe').getAttribute('aria-pressed') === 'true' }));
     scene.add(mesh);
     if (grid) { scene.remove(grid); grid.geometry.dispose(); grid.material.dispose(); }
     const gridSize = Math.pow(10, Math.ceil(Math.log10(radius * 3)));
