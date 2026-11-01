@@ -29,3 +29,5 @@
 .theme-select { border: 1px solid var(--line); border-radius: 9px; background: var(--panel); color: var(--secondary); padding: 8px 9px; font-size: 12px; cursor: pointer; max-width: 125px; }
 .download:hover { filter: brightness(1.08); }
 @media (max-width: 650px) { .topbar { gap: 12px; } .connection { display: none; } .theme-select { margin-left: auto; font-size: 11px; max-width: 120px; } }
+.model-folder>summary{cursor:pointer;color:var(--secondary);font-size:12px;font-weight:600;padding:12px 8px;overflow-wrap:anywhere}.model-folder>summary:hover{color:var(--accent)}.model-folder .model-card{padding-left:20px}
+.model-folder .model-folder{margin-left:14px;border-left:1px solid var(--line)}

@@ -94,3 +94,19 @@ Before running these operators, verify the named live paths and retain backups.
 Every SSH operation goes through `ops/audit_remote.py`; its infra checkout path
 is intentionally explicit for this installation. Run from the repository root.
 No forced Git push is used.
+
+## Shared local viewer for modeling chats
+
+Run `viewer/local-viewer.sh` from any directory and open
+`http://127.0.0.1:18795/`. This local instance listens only on the same
+computer and is separate from the public gallery. It stays available while the
+process is running; start it again after stopping it or restarting the computer.
+
+Each chat can use a separate, descriptive folder under `viewer/local-models/`.
+Folders appear as a collapsible hierarchy in the model list; nested paths
+can retain the workshop's dated export layout. The directory is
+ignored by Git and is not the public sync source. The gallery discovers STL
+files recursively and refreshes the catalog automatically. SCAD sources must be
+exported to STL first, following the modeling repository's export instructions
+and the base path supplied in that chat. Use a unique folder name for each chat
+and reuse this one viewer rather than starting a server for each model.

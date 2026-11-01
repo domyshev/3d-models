@@ -9,6 +9,7 @@ const cube = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-
 let models = [], selected = null, selectedVersion = null, mesh = null, grid = null;
 let loadSerial = 0, activeRequest = null, renderer = null, controls = null, camera = null;
 let radius = 100;
+const folderStates = new Map();
 const scene = new THREE.Scene();
 scene.background = null;
 scene.up.set(0, 0, 1);
@@ -96,7 +97,26 @@ function renderList() {
     empty.textContent = term ? 'No matches. Try another name.' : 'The collection is empty. New STL files will appear automatically.';
     list.append(empty);
   }
+  const folders = new Map();
+  function folderFor(path) {
+    if (folders.has(path)) return folders.get(path);
+    const parts = path.split('/');
+    const name = parts.pop();
+    const parentPath = parts.join('/');
+    const parent = parentPath ? folderFor(parentPath) : list;
+    const folder = document.createElement('details');
+    folder.className = 'model-folder';
+    folder.open = term ? true : (folderStates.get(path) ?? true);
+    folder.addEventListener('toggle', () => { if (!term) folderStates.set(path, folder.open); });
+    const summary = document.createElement('summary');
+    summary.textContent = name;
+    folder.append(summary);
+    parent.append(folder);
+    folders.set(path, folder);
+    return folder;
+  }
   for (const model of filtered) {
+    const folder = folderFor(model.folder === '.' ? 'Collection' : model.folder);
     const button = document.createElement('button');
     button.className = `model-card${selected?.id === model.id ? ' active' : ''}`;
     button.setAttribute('aria-pressed', String(selected?.id === model.id));
@@ -115,7 +135,7 @@ function renderList() {
     button.append(icon, body);
     button.title = model.id;
     button.onclick = () => selectModel(model);
-    list.append(button);
+    folder.append(button);
   }
 }
 

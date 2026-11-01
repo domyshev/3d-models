@@ -114,4 +114,4 @@ class Handler(BaseHTTPRequestHandler):
             self.send_error(404, 'Not found')
 
 if __name__ == '__main__':
-    ThreadingHTTPServer(('0.0.0.0', int(os.environ.get('PORT', '8080'))), Handler).serve_forever()
+    ThreadingHTTPServer((os.environ.get('BIND_HOST', '0.0.0.0'), int(os.environ.get('PORT', '8080'))), Handler).serve_forever()
