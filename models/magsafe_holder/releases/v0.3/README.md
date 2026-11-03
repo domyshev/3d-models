@@ -1,9 +1,9 @@
 # MagSafe Holder v0.3
 
-## Release v0.3.3
+## Release v0.3.4
 
-[Download 3MF](https://github.com/domyshev/3d-models/releases/download/v0.3.3/magsafe_holder_v0.3_a1_mini.3mf)
-· [Download complete ZIP](https://github.com/domyshev/3d-models/releases/download/v0.3.3/magsafe_holder_v0.3.3.zip)
+[Download 3MF](https://github.com/domyshev/3d-models/releases/download/v0.3.4/magsafe_holder_v0.3_a1_mini.3mf)
+· [Download complete ZIP](https://github.com/domyshev/3d-models/releases/download/v0.3.4/magsafe_holder_v0.3.4.zip)
 · [Assembly instructions](#assembly-instructions)
 
 **Validation:** the design has working printed prototypes; the exact final
@@ -12,12 +12,12 @@ complete set. The checklist below remains open.
 
 Released on 2026-11-03.
 
-Version 0.3.3 is a documentation-only update following review. It adds direct
-download links, step-by-step assembly and a pending physical-validation
-checklist. The main guide separates historical designs, and the model license
-now states the existing GPL-3.0-or-later grant without the future proposal.
+Version 0.3.4 fixes documentation links following review: image-gallery
+directories on the GitHub release use directory URLs, and historical models
+and photographs in HISTORY.md use absolute tag-pinned GitHub URLs that also
+work from the downloaded ZIP.
 Photos, geometry, individual STLs, OpenSCAD sources, and the Bambu project are
-unchanged from v0.3.2. No new physical testing is claimed. The inherited
+unchanged from v0.3.3. No new physical testing is claimed. The inherited
 65 degrees C bed setting remains unchanged and requires confirmation.
 Earlier releases and tags remain available.
 

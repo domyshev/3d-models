@@ -2,12 +2,13 @@
 
 ## Start here
 
-1. [Download the A1 mini Bambu Studio project](https://github.com/domyshev/3d-models/releases/download/v0.3.3/magsafe_holder_v0.3_a1_mini.3mf).
-2. [Download the complete v0.3.3 ZIP](https://github.com/domyshev/3d-models/releases/download/v0.3.3/magsafe_holder_v0.3.3.zip) for source, STLs, images, and license files.
+1. [Download the A1 mini Bambu Studio project](https://github.com/domyshev/3d-models/releases/download/v0.3.4/magsafe_holder_v0.3_a1_mini.3mf).
+2. [Download the complete v0.3.4 ZIP](https://github.com/domyshev/3d-models/releases/download/v0.3.4/magsafe_holder_v0.3.4.zip) for source, STLs, images, and license files.
 3. [Follow the assembly instructions](releases/v0.3/README.md#assembly-instructions).
 
-The downloads above are the published v0.3.3 artifacts. The ZIP includes the updated documentation; STL geometry and the Bambu profile
-are unchanged from v0.3.2.
+The downloads above are the published v0.3.4 artifacts. The ZIP includes the
+updated documentation; STL geometry and the Bambu profile are unchanged from
+v0.3.3.
 
 **Testing status:** a working prototype and core components have been physically
 tested. The exact final lightweight 3MF is slice-verified, but has not yet been
@@ -16,10 +17,10 @@ profile. See the [validation checklist](releases/v0.3/README.md#final-profile-va
 
 ## Version 0.3
 
-The latest patch is [v0.3.3](https://github.com/domyshev/3d-models/releases/tag/v0.3.3),
-which simplifies this guide, adds assembly instructions and a validation checklist,
-and separates current licensing from historical proposals. Photos, geometry,
-and print settings are unchanged from v0.3.2.
+The latest patch is [v0.3.4](https://github.com/domyshev/3d-models/releases/tag/v0.3.4),
+which fixes release-gallery folder links and makes historical links usable from
+the downloaded ZIP. Photos, geometry, and print settings are unchanged from
+v0.3.3.
 
 Version 0.3 is a single eight-piece design, named simply **MagSafe Holder v0.3**.
 It has no Compact or Full-Height selection. The two long and two short legs

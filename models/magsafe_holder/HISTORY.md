@@ -2,6 +2,8 @@
 
 Historical designs and print profiles, not instructions for v0.3.
 For the current model, start with [the main guide](README.md).
+Historical assets are linked to immutable GitHub tags because they are not
+included in the current-model ZIP. Internet access is required to view them.
 
 Version **0.2** provides both **Full-Height** and **Compact** configurations.
 The stand has been assembled and tested as a functional desktop MagSafe holder.
@@ -16,7 +18,7 @@ stand.
 
 The legacy v0.2 source provides two selectable configurations while keeping the
 version 0.1 artifacts unchanged under
-[`releases/v0.1/`](releases/v0.1/):
+[`releases/v0.1/`](https://github.com/domyshev/3d-models/tree/v0.3.3/models/magsafe_holder/releases/v0.1/):
 
 - `full_height` keeps the original elevated central cross and four integrated
   attachment studs;
@@ -41,15 +43,15 @@ redesign.
 
 Every printable component is available as an individual STL. The seven files
 shared by both configurations are stored under
-[`shared/stl/`](releases/v0.2/shared/stl/), while configuration-specific parts are under
-[`full-height/stl/`](releases/v0.2/full-height/stl/) and
-[`compact/stl/`](releases/v0.2/compact/stl/). Use the shared STL files
+[`shared/stl/`](https://github.com/domyshev/3d-models/tree/v0.3.3/models/magsafe_holder/releases/v0.2/shared/stl/), while configuration-specific parts are under
+[`full-height/stl/`](https://github.com/domyshev/3d-models/tree/v0.3.3/models/magsafe_holder/releases/v0.2/full-height/stl/) and
+[`compact/stl/`](https://github.com/domyshev/3d-models/tree/v0.3.3/models/magsafe_holder/releases/v0.2/compact/stl/). Use the shared STL files
 together with the selected configuration directory.
 
 Ready-to-open Bambu Studio projects are also provided for both configurations:
 
-- [full-height project for the Bambu Lab A1 mini](releases/v0.2/full-height/bambu/magsafe_holder_full_height_v0.2_a1_mini.3mf);
-- [compact project for the Bambu Lab A1 mini](releases/v0.2/compact/bambu/magsafe_holder_compact_v0.2_a1_mini.3mf).
+- [full-height project for the Bambu Lab A1 mini](https://github.com/domyshev/3d-models/blob/v0.3.3/models/magsafe_holder/releases/v0.2/full-height/bambu/magsafe_holder_full_height_v0.2_a1_mini.3mf);
+- [compact project for the Bambu Lab A1 mini](https://github.com/domyshev/3d-models/blob/v0.3.3/models/magsafe_holder/releases/v0.2/compact/bambu/magsafe_holder_compact_v0.2_a1_mini.3mf).
 
 ### Full-height Bambu Studio project
 
@@ -77,7 +79,7 @@ warnings at an estimated **105.43 g** of filament and approximately **4 hours
 
 ### Compact Bambu Studio project
 
-The [compact project for the Bambu Lab A1 mini](releases/v0.2/compact/bambu/magsafe_holder_compact_v0.2_a1_mini.3mf)
+The [compact project for the Bambu Lab A1 mini](https://github.com/domyshev/3d-models/blob/v0.3.3/models/magsafe_holder/releases/v0.2/compact/bambu/magsafe_holder_compact_v0.2_a1_mini.3mf)
 contains the complete 18-piece compact configuration on one plate:
 
 | Part | Quantity |
@@ -111,17 +113,17 @@ centered M12 threaded socket and presents a complete flat face to the table.
 
 | Front with MagSafe | Front without MagSafe |
 | --- | --- |
-| ![Front view of the Compact MagSafe holder with the charger installed](images/compact/front-with-magsafe.png) | ![Front view of the Compact MagSafe holder with the retaining ring empty](images/compact/front-empty.png) |
+| ![Front view of the Compact MagSafe holder with the charger installed](https://raw.githubusercontent.com/domyshev/3d-models/v0.3.3/models/magsafe_holder/images/compact/front-with-magsafe.png) | ![Front view of the Compact MagSafe holder with the retaining ring empty](https://raw.githubusercontent.com/domyshev/3d-models/v0.3.3/models/magsafe_holder/images/compact/front-empty.png) |
 
 | Rear with MagSafe | Rear without MagSafe |
 | --- | --- |
-| ![Rear view of the Compact MagSafe holder with the charger installed](images/compact/rear-with-magsafe.png) | ![Rear view of the Compact MagSafe holder with the retaining ring empty](images/compact/rear-empty.png) |
+| ![Rear view of the Compact MagSafe holder with the charger installed](https://raw.githubusercontent.com/domyshev/3d-models/v0.3.3/models/magsafe_holder/images/compact/rear-with-magsafe.png) | ![Rear view of the Compact MagSafe holder with the retaining ring empty](https://raw.githubusercontent.com/domyshev/3d-models/v0.3.3/models/magsafe_holder/images/compact/rear-empty.png) |
 
 ### Full-Height configuration
 
 | Front view | Rear view | Retaining ring without MagSafe |
 | --- | --- | --- |
-| ![Front view of the assembled Full-Height MagSafe holder](images/full-height/front.png) | ![Rear view of the assembled Full-Height MagSafe holder](images/full-height/rear.png) | ![Full-Height MagSafe holder with the charger removed](images/full-height/empty-clamp.png) |
+| ![Front view of the assembled Full-Height MagSafe holder](https://raw.githubusercontent.com/domyshev/3d-models/v0.3.3/models/magsafe_holder/images/full-height/front.png) | ![Rear view of the assembled Full-Height MagSafe holder](https://raw.githubusercontent.com/domyshev/3d-models/v0.3.3/models/magsafe_holder/images/full-height/rear.png) | ![Full-Height MagSafe holder with the charger removed](https://raw.githubusercontent.com/domyshev/3d-models/v0.3.3/models/magsafe_holder/images/full-height/empty-clamp.png) |
 
 ### Earlier release files
 
@@ -129,16 +131,16 @@ Version 0.2 includes individual STL files split into
 shared and configuration-specific directories, plus one complete single-plate
 Bambu Studio project for each configuration:
 
-- [`releases/v0.2/shared/stl/`](releases/v0.2/shared/stl/);
-- [`releases/v0.2/full-height/`](releases/v0.2/full-height/);
-- [`releases/v0.2/compact/`](releases/v0.2/compact/).
+- [`releases/v0.2/shared/stl/`](https://github.com/domyshev/3d-models/tree/v0.3.3/models/magsafe_holder/releases/v0.2/shared/stl/);
+- [`releases/v0.2/full-height/`](https://github.com/domyshev/3d-models/tree/v0.3.3/models/magsafe_holder/releases/v0.2/full-height/);
+- [`releases/v0.2/compact/`](https://github.com/domyshev/3d-models/tree/v0.3.3/models/magsafe_holder/releases/v0.2/compact/).
 
 Version 0.1 remains available as the original Full-Height release.
 
 Version 0.1 includes:
 
-- [nine individual STL files](releases/v0.1/stl/) for custom slicing;
-- a ready-to-open [Bambu Studio project for the A1 mini](releases/v0.1/bambu/magsafe_holder_v0.1_a1_mini.3mf)
+- [nine individual STL files](https://github.com/domyshev/3d-models/tree/v0.3.3/models/magsafe_holder/releases/v0.1/stl/) for custom slicing;
+- a ready-to-open [Bambu Studio project for the A1 mini](https://github.com/domyshev/3d-models/blob/v0.3.3/models/magsafe_holder/releases/v0.1/bambu/magsafe_holder_v0.1_a1_mini.3mf)
   with the complete 19-piece print set arranged on one plate.
 
 The Bambu Studio project uses the **0.20 mm Standard** process, a **0.4 mm**
@@ -171,7 +173,7 @@ for the Bambu Lab A1 mini. The complete one-plate print uses **103.22 g**
 
 ### Legacy v0.2 view modes
 
-For historical v0.2 designs, open [the legacy source](src/magsafe_holder.scad) and change the `part`
+For historical v0.2 designs, open [the legacy source](https://github.com/domyshev/3d-models/blob/v0.2.0/models/magsafe_holder/src/magsafe_holder.scad) and change the `part`
 value near the beginning of the file to switch between presentation, assembly,
 and individual-part views:
 
