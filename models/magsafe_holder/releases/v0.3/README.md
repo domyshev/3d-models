@@ -1,15 +1,25 @@
 # MagSafe Holder v0.3
 
-## Release v0.3.2
+## Release v0.3.3
 
-Released on 2026-10-30.
+[Download 3MF](https://github.com/domyshev/3d-models/releases/download/v0.3.3/magsafe_holder_v0.3_a1_mini.3mf)
+· [Download complete ZIP](https://github.com/domyshev/3d-models/releases/download/v0.3.3/magsafe_holder_v0.3.3.zip)
+· [Assembly instructions](#assembly-instructions)
 
-Version 0.3.2 adds real printed-prototype photographs, illustrated charger
-compatibility measurements, and pastel assembly views. The image sections are
-ordered: printed holder, measured charger, then CAD assembly. Photographic
-backgrounds were retouched with AI assistance; renders are labeled separately.
-Geometry, individual STL files, OpenSCAD sources, and the Bambu project remain
-unchanged from v0.3.0. Previous releases and their tags remain available.
+**Validation:** the design has working printed prototypes; the exact final
+lightweight 3MF has been slice-verified, not yet printed and load-tested as a
+complete set. The checklist below remains open.
+
+Released on 2026-11-03.
+
+Version 0.3.3 is a documentation-only update following review. It adds direct
+download links, step-by-step assembly and a pending physical-validation
+checklist. The main guide separates historical designs, and the model license
+now states the existing GPL-3.0-or-later grant without the future proposal.
+Photos, geometry, individual STLs, OpenSCAD sources, and the Bambu project are
+unchanged from v0.3.2. No new physical testing is claimed. The inherited
+65 degrees C bed setting remains unchanged and requires confirmation.
+Earlier releases and tags remain available.
 
 Version 0.3 has one design, named simply **MagSafe Holder v0.3**. There is no
 Compact or Full-Height selection for this version. This self-contained snapshot
@@ -80,6 +90,49 @@ in the release files.
 | Front-left | Back-right |
 | --- | --- |
 | ![Pastel assembly, front-left](images/assembly/front-left.png) | ![Pastel assembly, back-right](images/assembly/back-right.png) |
+
+## Assembly instructions
+
+Prepare one ring, one support, two long legs (`leg_x`), two short legs
+(`leg_y`), one M12 bolt, and one M12 nut. Remove supports and brim carefully;
+clear the sockets, bolt holes, and indexing teeth. Do not force a thread that
+binds or use a power driver.
+
+1. Identify the two opposing stud pairs on the support. In the assembly source,
+   the long legs attach along X, at the faces 11.5 mm from the center; the short
+   legs attach along Y, at the faces 15 mm from the center. Use the
+   [colored assembly views](#assembly-views) to confirm the layout.
+2. Screw the two long legs onto their opposing studs and the two short legs
+   onto the other pair. Tighten by hand without overtightening the PLA threads.
+3. With the ring still loose, fit the compatible MagSafe charger into its seat.
+   Keep the white charging face toward the phone and route the cable through
+   the ring opening without pinching it. Do not force an oversized charger.
+4. Place the ring's arms between the support's upper fork arms. Align the pivot
+   holes and opposing indexing teeth. Pass the M12 bolt through the joint and
+   start the nut by hand on the other side.
+5. Set the phone angle, seat the indexing teeth together, and gently tighten
+   the bolt and nut until the joint holds. Do not use the fastener to force
+   misaligned teeth into place or bend the fork arms.
+6. Place the holder on a level table. Check all four feet, thread seating,
+   charger retention, cable clearance, and angle locking before adding a phone.
+   The central support intentionally clears the table; it is not a leveling
+   foot. If it rocks or a joint moves, resolve that before use.
+
+## Final-profile validation checklist
+
+This checklist is pending, not a record of completed tests. Existing prototype
+tests do not validate the exact final optimized profile.
+
+- [ ] Print all eight pieces from the published 3MF without changing its
+  reinforcement modifiers. Record printer, filament, and any profile changes.
+- [ ] Confirm bed adhesion with the saved 65 degrees C textured-PEI setting;
+  review the filament warning rather than assuming it is harmless.
+- [ ] Check clean, continuous fork walls and teeth, and remove supports without
+  breaking the ears or studs.
+- [ ] Check every threaded joint and complete the assembly above.
+- [ ] Confirm stability, charger retention when removing the phone, and joint
+  holding during normal use. Inspect stud roots for cracks or layer separation.
+- [ ] Record the outcome before describing the exact 3MF as print-tested.
 
 ## Files and views
 
@@ -217,6 +270,10 @@ Support dimples stop 2 mm below the lower edge of the upper indexing disk.
 The upper fork retains the known successful local tessellation. Inspect the
 sliced fork walls before printing; do not confuse support paths with model walls.
 
-Existing licensing and third-party notices in the model root apply, including
-GPL-3.0-or-later for this distribution with Dan Kirshner's threads.scad 2.7.
+## License
+
+This distribution is **GPL-3.0-or-later**. See the model-root
+[LICENSE](../../LICENSE), [third-party notices](../../THIRD_PARTY_NOTICES.md),
+and [complete GPL text](../../../../LICENSES/GPL-3.0-or-later.txt).
+Historical future licensing plans do not add restrictions to this release.
 
