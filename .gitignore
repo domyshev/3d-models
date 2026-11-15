@@ -3,3 +3,6 @@
 /details/exports/
 
 /viewer/local-models/
+/viewer/node_modules/
+/viewer/web/app.js
+/viewer/**/__pycache__/
